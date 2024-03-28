@@ -1,21 +1,41 @@
-﻿#include <iostream>
+#include <iostream>
 using namespace std;
 
-void hanoi(int n, char a, char c, char b) {
-    if (n == 1) {
-        cout << "移动盘 1 由 " << a << " -> " << c << endl;
+// diskCount: Number of disks to move
+// sourcePole: The pole from which disks are moved ('A')
+// destinationPole: The pole to which disks are moved ('C')
+// auxiliaryPole: The pole used as an aid to move disks ('B')
+
+void hanoi(int diskCount, char sourcePole, char destinationPole, char auxiliaryPole)
+{
+    // Base case: if there's only one disk, move it directly from source to destination
+    if (diskCount == 1)
+    {
+        cout << "移动盘 1 由 " << sourcePole << " -> " << destinationPole << endl;
     }
-    else {
-        hanoi(n - 1, a, b, c);
-        cout << "移动盘 " << n << " 由 " << a << " -> " << c << endl;
-        hanoi(n - 1, b, c, a);
+    else
+    {
+        // Move n-1 disks from source to auxiliary, using destination as a temporary pole
+        hanoi(diskCount - 1, sourcePole, auxiliaryPole, destinationPole);
+        // Move the nth disk from source to destination
+        cout << "移动盘 " << diskCount << " 由 " << sourcePole << " -> " << destinationPole << endl;
+        // Move the n-1 disks from auxiliary to destination, using source as a temporary pole
+        hanoi(diskCount - 1, auxiliaryPole, destinationPole, sourcePole);
     }
 }
 
-int main() {
-    int n;
+int main(void) // For better compatibility, explicitly define void here
+{
+    int diskCount; // The total number of disks to move
     cout << "请输入圆盘的总数量: ";
-    cin >> n;
-    hanoi(n, 'A', 'C', 'B');
+    cin >> diskCount;
+    // Check for valid input
+    if (diskCount <= 0)
+    {
+        cout << "无效的数量，请输入一个正数。" << endl;
+        return 1; // Return an error code
+    }
+    // Solve the Tower of Hanoi puzzle
+    hanoi(diskCount, 'A', 'C', 'B');
     return 0;
 }
