@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+// author:Liu-3237094548@qq.com-2024.3.28
 // diskCount: Number of disks to move
 // sourcePole: The pole from which disks are moved ('A')
 // destinationPole: The pole to which disks are moved ('C')
